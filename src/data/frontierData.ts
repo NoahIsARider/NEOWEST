@@ -1,13 +1,17 @@
-import { Waypoint, StoryChapter } from '../types';
+import { Waypoint, StoryChapter, SceneMode } from '../types';
 import duskImg from '../assets/images/retro_western_bg_1786200337572.jpg';
 import nightImg from '../assets/images/retro_western_night_1786200351930.jpg';
+import pandemoniumImg from '../assets/images/pandemonium_futurism_1786250537353.jpg';
+import paradisoImg from '../assets/images/paradiso_futurism_1786250554189.jpg';
 
-export const BACKGROUND_IMAGES = {
+export const BACKGROUND_IMAGES: Record<SceneMode, string> = {
   dusk: duskImg,
   night: nightImg,
+  pandemonium: pandemoniumImg,
+  paradiso: paradisoImg,
 };
 
-export const WAYPOINTS: Record<'dusk' | 'night', Waypoint[]> = {
+export const WAYPOINTS: Record<SceneMode, Waypoint[]> = {
   dusk: [
     {
       id: 'sun_core',
@@ -94,6 +98,58 @@ export const WAYPOINTS: Record<'dusk' | 'night', Waypoint[]> = {
       spectralFrequency: '580 THz [Luminous Gold]',
       description: 'Electromagnetic whirlwinds stirring luminous particles across the quiet expanse of the desert plateau.',
       lore: 'Night winds lift glowing microscopic particles into the air. In this minimalist field of vision, spiraling dust devils execute a silent digital choreography across the badlands.'
+    }
+  ],
+  pandemonium: [
+    {
+      id: 'pandemonium_vault',
+      number: 'P-01',
+      title: 'INFERNAL VAULT',
+      subtitle: 'Subterranean Obsidian Monoliths',
+      x: 48,
+      y: 32,
+      coordinates: '36.90°N, 118.88°W • Vault Tier-9',
+      spectralFrequency: '920 THz [Infernal Crimson]',
+      description: 'Towering circuit-engraved obsidian columns fused with cyberpunk geometry and glowing molten conduits.',
+      lore: 'Deep beneath desert fault lines lies an ancient fiery engine where molten copper conduits pulse with cybernetic electricity.'
+    },
+    {
+      id: 'molten_abyss',
+      number: 'P-02',
+      title: 'MOLTEN VECTOR GRID',
+      subtitle: 'Crimson Currents & Fiery Wireframes',
+      x: 72,
+      y: 64,
+      coordinates: '36.82°N, 118.70°W • Vector C-04',
+      spectralFrequency: '850 THz [Copper Neon]',
+      description: 'Minimalist wireframe arrays bridging cavernous abyss formations surrounded by dark atmospheric mist.',
+      lore: 'Fiery crimson light arrays slice through subterranean shadows as ancient architectural monoliths reflect the endless infernal hum.'
+    }
+  ],
+  paradiso: [
+    {
+      id: 'paradiso_sphere',
+      number: 'E-01',
+      title: 'DIVINE CELESTIAL SPHERES',
+      subtitle: 'Luminous Cybernetic Rings',
+      x: 50,
+      y: 28,
+      coordinates: '37.10°N, 118.05°W • Zenith Realm',
+      spectralFrequency: '1040 THz [Luminous Gold & Cyan]',
+      description: 'Concentric rings of sacred gold and cyan energy suspended over a transcendent cybernetic realm.',
+      lore: 'Luminous vector rays cut through celestial space, channeling infinite light and sacred geometry into the frontier.'
+    },
+    {
+      id: 'crystal_sanctuary',
+      number: 'E-02',
+      title: 'CRYSTALLINE MATRIX',
+      subtitle: 'Ivory Vector Spires & Quantum Energy',
+      x: 28,
+      y: 62,
+      coordinates: '37.15°N, 118.12°W • Vector Zenith',
+      spectralFrequency: '1120 THz [Celestial White]',
+      description: 'Sleek crystalline obsidian and ivory structures radiating transcendent quantum luminescence.',
+      lore: 'A sacred digital sanctuary where code dissolves into pure light and static echoes become harmonious celestial hymns.'
     }
   ]
 };

@@ -37,7 +37,14 @@ export const BackgroundLayer: React.FC<BackgroundLayerProps> = ({ sceneMode, mou
       speedX: (Math.random() - 0.5) * 0.4,
       speedY: -Math.random() * 0.6 - 0.1,
       alpha: Math.random() * 0.7 + 0.2,
-      color: sceneMode === 'dusk' ? '#f97316' : '#22d3ee',
+      color:
+        sceneMode === 'dusk'
+          ? '#f97316'
+          : sceneMode === 'pandemonium'
+          ? '#ef4444'
+          : sceneMode === 'paradiso'
+          ? '#eab308'
+          : '#22d3ee',
     }));
 
     const render = () => {

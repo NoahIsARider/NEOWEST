@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { SceneMode } from '../types';
 import { westernSynth } from '../utils/audioSynth';
-import { Volume2, VolumeX, Eye, EyeOff, Radio, Sun, Moon } from 'lucide-react';
+import { Volume2, VolumeX, Eye, EyeOff, Sun, Moon, Sparkles, ChevronDown } from 'lucide-react';
 
 interface MinimalHUDProps {
   sceneMode: SceneMode;
@@ -22,6 +22,7 @@ export const MinimalHUD: React.FC<MinimalHUDProps> = ({
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [audioVolume, setAudioVolume] = useState(0.3);
   const [currentTime, setCurrentTime] = useState('');
+  const [showDlcMenu, setShowDlcMenu] = useState(false);
 
   useEffect(() => {
     const updateClock = () => {
@@ -95,11 +96,12 @@ export const MinimalHUD: React.FC<MinimalHUDProps> = ({
           className="pointer-events-auto flex flex-wrap items-center gap-3 md:gap-4 bg-[#0c0505]/75 backdrop-blur-md px-4 py-2 border border-[#f2e8cf]/20 rounded-full shadow-2xl"
         >
           {/* Scene Switcher */}
-          <div className="flex items-center gap-1 border-r border-[#f2e8cf]/15 pr-3">
+          <div className="flex items-center gap-1 border-r border-[#f2e8cf]/15 pr-3 relative">
             <button
               onClick={() => {
                 westernSynth.playLaserPing();
                 onSceneChange('dusk');
+                setShowDlcMenu(false);
               }}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-all duration-300 ${
                 sceneMode === 'dusk'
@@ -115,6 +117,7 @@ export const MinimalHUD: React.FC<MinimalHUDProps> = ({
               onClick={() => {
                 westernSynth.playLaserPing();
                 onSceneChange('night');
+                setShowDlcMenu(false);
               }}
               className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono transition-all duration-300 ${
                 sceneMode === 'night'
@@ -125,6 +128,65 @@ export const MinimalHUD: React.FC<MinimalHUDProps> = ({
               <Moon className="w-3.5 h-3.5 text-[#00f2ff]" />
               <span>2088 NIGHT</span>
             </button>
+
+            {/* Subtle Discreet DLC Mode Selector */}
+            <div className="relative">
+              <button
+                onClick={() => {
+                  westernSynth.playLaserPing();
+                  setShowDlcMenu(!showDlcMenu);
+                }}
+                className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-mono transition-all duration-300 border ${
+                  sceneMode === 'pandemonium'
+                    ? 'bg-[#ff2a00]/20 text-[#ff4e00] border-[#ff2a00]/70 shadow-[0_0_12px_rgba(255,42,0,0.3)]'
+                    : sceneMode === 'paradiso'
+                    ? 'bg-[#eab308]/20 text-[#eab308] border-[#eab308]/70 shadow-[0_0_12px_rgba(234,179,8,0.3)]'
+                    : 'bg-transparent text-[#f2e8cf]/50 border-transparent hover:text-[#f2e8cf]/90 hover:bg-[#f2e8cf]/10'
+                }`}
+                title="Secret Anomaly Archives (DLC)"
+              >
+                <Sparkles className="w-3 h-3 text-[#eab308]" />
+                <span className="text-[10px] font-mono tracking-wider uppercase">
+                  {sceneMode === 'pandemonium' ? 'PANDEMONIUM' : sceneMode === 'paradiso' ? 'PARADISO' : 'DLC'}
+                </span>
+                <ChevronDown className="w-3 h-3 opacity-60" />
+              </button>
+
+              {/* Discreet Dropdown Menu */}
+              {showDlcMenu && (
+                <div className="absolute top-full right-0 mt-2 w-48 bg-[#0c0505]/95 backdrop-blur-2xl border border-[#f2e8cf]/20 rounded-xl p-2 shadow-2xl z-50">
+                  <div className="px-2 py-1 text-[9px] font-mono tracking-widest text-[#f2e8cf]/40 uppercase border-b border-[#f2e8cf]/10 mb-1">
+                    ANOMALY ARCHIVES // DLC
+                  </div>
+                  <button
+                    onClick={() => {
+                      westernSynth.playLaserPing();
+                      onSceneChange('pandemonium');
+                      setShowDlcMenu(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-mono transition-colors text-left ${
+                      sceneMode === 'pandemonium' ? 'bg-[#ff2a00]/20 text-[#ff4e00] border border-[#ff2a00]/40' : 'text-[#f2e8cf]/80 hover:bg-[#f2e8cf]/10'
+                    }`}
+                  >
+                    <span>01. PANDEMONIUM</span>
+                    <span className="text-[9px] text-[#ff4e00]/80 font-mono">OBSIDIAN</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      westernSynth.playLaserPing();
+                      onSceneChange('paradiso');
+                      setShowDlcMenu(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-mono transition-colors text-left ${
+                      sceneMode === 'paradiso' ? 'bg-[#eab308]/20 text-[#eab308] border border-[#eab308]/40' : 'text-[#f2e8cf]/80 hover:bg-[#f2e8cf]/10'
+                    }`}
+                  >
+                    <span>02. PARADISO</span>
+                    <span className="text-[9px] text-[#eab308]/80 font-mono">CELESTIAL</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Audio Synthesizer Controls */}

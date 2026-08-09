@@ -19,7 +19,7 @@ export interface StoryChapter {
   epoch: string;
 }
 
-export type SceneMode = 'dusk' | 'night';
+export type SceneMode = 'dusk' | 'night' | 'pandemonium' | 'paradiso';
 
 export interface AudioState {
   isPlaying: boolean;

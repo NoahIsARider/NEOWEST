@@ -64,6 +64,10 @@ export default function App() {
       {/* Concept Spec & Visual Layer Tuner */}
       <ConceptSpecOverlay
         sceneMode={sceneMode}
+        onSceneChange={(mode) => {
+          setSceneMode(mode);
+          setSelectedWaypointId(null);
+        }}
         cleanView={cleanView}
         showGrid={showGrid}
         onToggleGrid={() => setShowGrid(!showGrid)}
